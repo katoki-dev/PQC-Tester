@@ -1,16 +1,56 @@
-# React + Vite
+# QuantumVault PQC-Tester
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A professional, browser-based auditing tool for testing Post-Quantum Cryptographic (PQC) operations. This application allows developers and security auditors to verify ML-DSA (signatures) and ML-KEM (encapsulation) implementations against the QuantumVault Backend.
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+-   **PQC Native Support**: Integrated with `@noble/post-quantum` for client-side signing and verification using ML-DSA-87.
+-   **Operation Presets**: Quickly test Sign/Verify, KEM (Encapsulate/Decapsulate), and Authenticated Encryption (GCM).
+-   **Security Console**: Real-time logging of API requests, responses, and latencies with full JSON inspector.
+-   **Mobile Responsive**: Fully optimized layout for Desktop, Tablet, and Mobile viewports.
+-   **Enterprise Hardened**: Supports mTLS authentication and specialized signature headers for API hardening.
 
-## React Compiler
+## 🛠️ Getting Started
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Prerequisites
 
-## Expanding the ESLint configuration
+-   [Node.js](https://nodejs.org/) (v20 or higher)
+-   [npm](https://www.npmjs.com/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/katoki-dev/PQC-Tester.git
+   cd PQC-Tester
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+### Usage
+
+1. Configure your **Vault Endpoint** (default is `https://be.quantumvault.tech`).
+2. Set your **Auth Key ID** and **Unified Private Key** (PEM for RSA or Hex for ML-DSA).
+3. Select an operation tab (**Sign**, **KEM**, or **GCM**).
+4. Run the operation and monitor the results in the **Security Console**.
+
+## 🧪 Technical Stack
+
+-   **Frontend**: React 19 + Vite
+-   **Styling**: Vanilla CSS (Modern CSS variables + Glassmorphism)
+-   **Cryptography**: 
+    -   `@noble/post-quantum`: ML-DSA signing.
+    -   `node-forge`: RSA operations.
+    -   `axios`: Hardened API communication.
+
+---
+
+*Verified for the QuantumVault Security Audit Suite.*
