@@ -1,11 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QuantumVault | PQC-KMS Tester</title>
-    <meta name="description" content="Hardened Post-Quantum Cryptographic Request Signing & Testing Utility for QuantumVault KMS">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <meta name="description"
+        content="Hardened Post-Quantum Cryptographic Request Signing & Testing Utility for QuantumVault KMS">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --bg: #0a0f1e;
@@ -21,10 +25,14 @@
             --error: #ef4444;
             --warning: #f59e0b;
             --info: #38bdf8;
-            --inset: rgba(0,0,0,0.3);
+            --inset: rgba(0, 0, 0, 0.3);
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
         body {
             font-family: 'Inter', sans-serif;
@@ -40,9 +48,16 @@
             line-height: 1.55;
         }
 
-        @media (max-width: 640px) { body { padding: 1rem; } }
+        @media (max-width: 640px) {
+            body {
+                padding: 1rem;
+            }
+        }
 
-        .container { max-width: 1280px; margin: 0 auto; }
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+        }
 
         header {
             margin-bottom: 2.5rem;
@@ -67,9 +82,23 @@
             border: 1px solid;
         }
 
-        .badge-pqc { color: var(--primary); border-color: rgba(99,102,241,0.4); background: rgba(99,102,241,0.1); }
-        .badge-hardened { color: var(--success); border-color: rgba(16,185,129,0.4); background: rgba(16,185,129,0.1); }
-        .badge-live { color: var(--accent); border-color: rgba(168,85,247,0.4); background: rgba(168,85,247,0.1); }
+        .badge-pqc {
+            color: var(--primary);
+            border-color: rgba(99, 102, 241, 0.4);
+            background: rgba(99, 102, 241, 0.1);
+        }
+
+        .badge-hardened {
+            color: var(--success);
+            border-color: rgba(16, 185, 129, 0.4);
+            background: rgba(16, 185, 129, 0.1);
+        }
+
+        .badge-live {
+            color: var(--accent);
+            border-color: rgba(168, 85, 247, 0.4);
+            background: rgba(168, 85, 247, 0.1);
+        }
 
         header h1 {
             font-size: 2.5rem;
@@ -81,7 +110,10 @@
             -webkit-text-fill-color: transparent;
         }
 
-        header p { color: var(--text-muted); font-size: 1rem; }
+        header p {
+            color: var(--text-muted);
+            font-size: 1rem;
+        }
 
         /* Server URL bar */
         .server-bar {
@@ -96,7 +128,12 @@
             padding: 0.5rem 0.75rem;
         }
 
-        .server-bar label { font-size: 0.75rem; color: var(--text-muted); white-space: nowrap; }
+        .server-bar label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+        }
+
         .server-bar input {
             background: transparent;
             border: none;
@@ -105,7 +142,12 @@
             padding: 0;
             flex: 1;
         }
-        .server-bar input:focus { outline: none; box-shadow: none; border: none; }
+
+        .server-bar input:focus {
+            outline: none;
+            box-shadow: none;
+            border: none;
+        }
 
         .grid {
             display: grid;
@@ -114,7 +156,11 @@
             align-items: start;
         }
 
-        @media (max-width: 980px) { .grid { grid-template-columns: 1fr; } }
+        @media (max-width: 980px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+        }
 
         .card {
             background: var(--card-bg);
@@ -123,7 +169,7 @@
             border: 1px solid var(--border);
             border-radius: 1rem;
             padding: 1.5rem;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.05);
         }
 
         .card-header {
@@ -141,8 +187,13 @@
             gap: 0.5rem;
         }
 
-        .form-group { margin-bottom: 1.1rem; }
-        .form-group:last-child { margin-bottom: 0; }
+        .form-group {
+            margin-bottom: 1.1rem;
+        }
+
+        .form-group:last-child {
+            margin-bottom: 0;
+        }
 
         label {
             display: block;
@@ -154,7 +205,9 @@
             letter-spacing: 0.04em;
         }
 
-        input, select, textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
             background: var(--inset);
             border: 1px solid var(--border);
@@ -166,14 +219,21 @@
             transition: border-color 0.2s, box-shadow 0.2s;
         }
 
-        input:focus, textarea:focus, select:focus {
+        input:focus,
+        textarea:focus,
+        select:focus {
             outline: none;
             border-color: var(--primary);
             box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
         }
 
-        select { cursor: pointer; }
-        select option { background: #1e293b; }
+        select {
+            cursor: pointer;
+        }
+
+        select option {
+            background: #1e293b;
+        }
 
         textarea {
             font-family: 'JetBrains Mono', monospace;
@@ -213,7 +273,11 @@
         }
 
         /* Protocol pills */
-        .pill-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+        .pill-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
 
         .pill {
             background: rgba(148, 163, 184, 0.08);
@@ -228,17 +292,35 @@
             user-select: none;
         }
 
-        .pill:hover { border-color: var(--primary); color: var(--text-main); }
-        .pill.active { background: var(--primary); border-color: var(--primary); color: white; }
-        .pill.active-ecdsa { background: #0891b2; border-color: #0891b2; color: white; }
-        .pill.active-rsa { background: #059669; border-color: #059669; color: white; }
+        .pill:hover {
+            border-color: var(--primary);
+            color: var(--text-main);
+        }
+
+        .pill.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+
+        .pill.active-ecdsa {
+            background: #0891b2;
+            border-color: #0891b2;
+            color: white;
+        }
+
+        .pill.active-rsa {
+            background: #059669;
+            border-color: #059669;
+            color: white;
+        }
 
         /* Dynamic fields */
         .dynamic-fields {
-            border: 1px dashed rgba(148,163,184,0.15);
+            border: 1px dashed rgba(148, 163, 184, 0.15);
             border-radius: 0.625rem;
             padding: 0.875rem;
-            background: rgba(0,0,0,0.15);
+            background: rgba(0, 0, 0, 0.15);
             margin-bottom: 1rem;
         }
 
@@ -252,7 +334,11 @@
         }
 
         /* Buttons */
-        .btn-row { display: flex; gap: 0.625rem; margin-top: 1rem; }
+        .btn-row {
+            display: flex;
+            gap: 0.625rem;
+            margin-top: 1rem;
+        }
 
         .btn {
             border: none;
@@ -268,31 +354,44 @@
             transition: all 0.15s;
         }
 
-        .btn:active { transform: scale(0.98); }
-        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .btn:active {
+            transform: scale(0.98);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
 
         .btn-primary {
             background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
             color: white;
             flex: 3;
-            box-shadow: 0 4px 12px rgba(99,102,241,0.3);
+            box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
         }
 
-        .btn-primary:hover:not(:disabled) { box-shadow: 0 6px 20px rgba(99,102,241,0.45); opacity: 0.95; }
+        .btn-primary:hover:not(:disabled) {
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+            opacity: 0.95;
+        }
 
         .btn-secondary {
-            background: rgba(148,163,184,0.1);
+            background: rgba(148, 163, 184, 0.1);
             color: var(--text-muted);
             border: 1px solid var(--border);
             flex: 1;
         }
 
-        .btn-secondary:hover:not(:disabled) { background: rgba(148,163,184,0.18); color: var(--text-main); }
+        .btn-secondary:hover:not(:disabled) {
+            background: rgba(148, 163, 184, 0.18);
+            color: var(--text-main);
+        }
 
         .btn-icon {
-            background: rgba(99,102,241,0.1);
+            background: rgba(99, 102, 241, 0.1);
             color: var(--primary);
-            border: 1px solid rgba(99,102,241,0.2);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             padding: 0.5rem;
             border-radius: 0.375rem;
             font-size: 0.75rem;
@@ -300,20 +399,8 @@
             transition: all 0.15s;
         }
 
-        .btn-icon:hover { background: rgba(99,102,241,0.2); }
-
-        .upload-key-btn {
-            font-size: 0.7rem;
-            padding: 0.25rem 0.6rem;
-            display: flex;
-            align-items: center;
-            gap: 0.3rem;
-        }
-
-        .private-key-label {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
+        .btn-icon:hover {
+            background: rgba(99, 102, 241, 0.2);
         }
 
         /* Loader */
@@ -328,7 +415,11 @@
             flex-shrink: 0;
         }
 
-        @keyframes spin { to { transform: rotate(360deg); } }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
         /* Result areas */
         .result-area {
@@ -346,9 +437,19 @@
             line-height: 1.6;
         }
 
-        .result-area.compact { min-height: 70px; }
-        .result-area.success { border-color: rgba(16,185,129,0.3); background: rgba(16,185,129,0.04); }
-        .result-area.error { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.04); }
+        .result-area.compact {
+            min-height: 70px;
+        }
+
+        .result-area.success {
+            border-color: rgba(16, 185, 129, 0.3);
+            background: rgba(16, 185, 129, 0.04);
+        }
+
+        .result-area.error {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.04);
+        }
 
         /* Status row */
         .status-row {
@@ -370,15 +471,35 @@
             letter-spacing: 0.05em;
         }
 
-        .status-ok { background: rgba(16, 185, 129, 0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
-        .status-err { background: rgba(239, 68, 68, 0.15); color: var(--error); border: 1px solid rgba(239,68,68,0.3); }
-        .status-warn { background: rgba(245, 158, 11, 0.15); color: var(--warning); border: 1px solid rgba(245,158,11,0.3); }
+        .status-ok {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--success);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
 
-        .meta-info { display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap; }
+        .status-err {
+            background: rgba(239, 68, 68, 0.15);
+            color: var(--error);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+        }
+
+        .status-warn {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--warning);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .meta-info {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
         .meta-chip {
             font-size: 0.7rem;
             color: var(--text-muted);
-            background: rgba(148,163,184,0.08);
+            background: rgba(148, 163, 184, 0.08);
             padding: 0.2rem 0.5rem;
             border-radius: 0.25rem;
         }
@@ -423,12 +544,31 @@
             line-height: 1.8;
         }
 
-        .diag-log div { display: flex; gap: 0.5rem; }
-        .diag-log .ts { color: rgba(148,163,184,0.4); flex-shrink: 0; }
-        .diag-log .msg { flex: 1; }
-        .diag-log .msg.ok { color: var(--success); }
-        .diag-log .msg.err { color: var(--error); }
-        .diag-log .msg.info { color: var(--info); }
+        .diag-log div {
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .diag-log .ts {
+            color: rgba(148, 163, 184, 0.4);
+            flex-shrink: 0;
+        }
+
+        .diag-log .msg {
+            flex: 1;
+        }
+
+        .diag-log .msg.ok {
+            color: var(--success);
+        }
+
+        .diag-log .msg.err {
+            color: var(--error);
+        }
+
+        .diag-log .msg.info {
+            color: var(--info);
+        }
 
         /* Tooltip hint */
         .hint {
@@ -441,8 +581,8 @@
         /* "Use this as input" banner */
         .use-result-banner {
             display: none;
-            background: rgba(99,102,241,0.08);
-            border: 1px solid rgba(99,102,241,0.2);
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.2);
             border-radius: 0.375rem;
             padding: 0.5rem 0.75rem;
             font-size: 0.775rem;
@@ -454,577 +594,605 @@
         }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 5px; height: 5px; }
-        ::-webkit-scrollbar-track { background: transparent; }
-        ::-webkit-scrollbar-thumb { background: rgba(148,163,184,0.2); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: rgba(148,163,184,0.35); }
+        ::-webkit-scrollbar {
+            width: 5px;
+            height: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.2);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(148, 163, 184, 0.35);
+        }
+
+        /* Upload button styling */
+        .label-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.4rem;
+        }
+
+        .upload-link {
+            font-size: 0.65rem;
+            color: var(--primary);
+            cursor: pointer;
+            text-transform: none;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .upload-link:hover {
+            color: var(--accent);
+        }
     </style>
 </head>
+
 <body>
 
-<div class="container">
-    <header>
-        <div class="badge-row">
-            <span class="badge badge-pqc">ML-DSA-65</span>
-            <span class="badge badge-pqc">ML-KEM-768</span>
-            <span class="badge badge-hardened">Header-Enforced Identity</span>
-            <span class="badge badge-live">Live</span>
-        </div>
-        <h1>QuantumVault PQC-KMS</h1>
-        <p>Hardened Post-Quantum Cryptographic Request Signing &amp; Testing Utility</p>
-        <div class="server-bar">
-            <label>API Base</label>
-            <input type="text" id="baseUrl" value="http://localhost:5000/api/crypto" spellcheck="false">
-        </div>
-    </header>
-
-    <div class="grid">
-        <!-- LEFT: Configuration -->
-        <div class="card">
-            <div class="card-header">
-                <h2>⚙️ Operation &amp; Auth</h2>
-                <span style="font-size:0.7rem; color:var(--text-muted);" id="opBadge">Signing Mode</span>
+    <div class="container">
+        <header>
+            <div class="badge-row">
+                <span class="badge badge-pqc">ML-DSA-65</span>
+                <span class="badge badge-pqc">ML-KEM-768</span>
+                <span class="badge badge-hardened">Header-Enforced Identity</span>
+                <span class="badge badge-live">Live</span>
             </div>
-
-            <!-- Operation Select -->
-            <div class="form-group">
-                <label>Crypto Operation</label>
-                <select id="operation">
-                    <option value="sign">✒️ Sign Data</option>
-                    <option value="verify">✅ Verify Signature</option>
-                    <option value="encapsulate">🔒 Encapsulate (KEM)</option>
-                    <option value="decapsulate">🔓 Decapsulate (KEM)</option>
-                    <option value="encrypt">📦 Encrypt (AES-GCM)</option>
-                    <option value="decrypt">📬 Decrypt (AES-GCM)</option>
-                </select>
+            <h1>QuantumVault PQC-KMS</h1>
+            <p>Hardened Post-Quantum Cryptographic Request Signing &amp; Testing Utility</p>
+            <div class="server-bar">
+                <label>API Base</label>
+                <input type="text" id="baseUrl" value="https://be.quantumvault.tech/api/crypto" spellcheck="false">
             </div>
+        </header>
 
-            <!-- Identity Block (Headers Only) -->
-            <div class="identity-block">
-                <div class="identity-block-header">
-                    <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                        <rect x="3" y="11" width="18" height="11" rx="2" ry="2"/>
-                        <path d="M7 11V7a5 5 0 0 1 10 0v4"/>
-                    </svg>
-                    <span>Network Identity — Headers Only (Never in Body)</span>
+        <div class="grid">
+            <!-- LEFT: Configuration -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>⚙️ Operation &amp; Auth</h2>
+                    <span style="font-size:0.7rem; color:var(--text-muted);" id="opBadge">Signing Mode</span>
                 </div>
+
+                <!-- Operation Select -->
                 <div class="form-group">
-                    <label>PQC Key ID &nbsp;<span style="font-weight:400;color:rgba(148,163,184,0.5);">(x-pqc-key-id)</span></label>
-                    <input type="text" id="pqcKeyId" placeholder="e.g. 5a04r0e83vtxmdtvcc9jj0ui0zqh1z54" autocomplete="off" spellcheck="false">
+                    <label>Crypto Operation</label>
+                    <select id="operation">
+                        <option value="sign">✒️ Sign Data</option>
+                        <option value="verify">✅ Verify Signature</option>
+                        <option value="encapsulate">🔒 Encapsulate (KEM)</option>
+                        <option value="decapsulate">🔓 Decapsulate (KEM)</option>
+                        <option value="encrypt">📦 Encrypt (AES-GCM)</option>
+                        <option value="decrypt">📬 Decrypt (AES-GCM)</option>
+                    </select>
                 </div>
-                <div class="form-group" style="margin-bottom:0;">
-                    <label>Auth Key ID &nbsp;<span style="font-weight:400;color:rgba(148,163,184,0.5);">(x-auth-key-id)</span></label>
-                    <input type="text" id="authKeyId" placeholder="e.g. nd9i5ai6tl4fxartyfdv78t3mx6ojrnr" autocomplete="off" spellcheck="false">
-                </div>
-            </div>
 
-            <!-- Auth Protocol -->
-            <div class="form-group">
-                <label>Signing Protocol</label>
-                <div class="pill-row">
-                    <span class="pill active" data-algo="ML-DSA" data-cls="active">ML-DSA (PQC)</span>
-                    <span class="pill" data-algo="ECDSA" data-cls="active-ecdsa">ECDSA</span>
-                    <span class="pill" data-algo="RSA" data-cls="active-rsa">RSA</span>
-                    <span class="pill" data-algo="Hybrid" data-cls="active-accent">Hybrid (PQC+Classical)</span>
+                <!-- Identity Block (Headers Only) -->
+                <div class="identity-block">
+                    <div class="identity-block-header">
+                        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                            <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                            <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                        </svg>
+                        <span>Network Identity — Headers Only (Never in Body)</span>
+                    </div>
+                    <div class="form-group">
+                        <label>PQC Key ID &nbsp;<span
+                                style="font-weight:400;color:rgba(148,163,184,0.5);">(x-pqc-key-id)</span></label>
+                        <input type="text" id="pqcKeyId"
+                            placeholder="UUID v4 (e.g. 550e8400-e29b-41d4-a716-446655440000)" autocomplete="off"
+                            spellcheck="false">
+                    </div>
+                    <div class="form-group" style="margin-bottom:0;">
+                        <label>Auth Key ID &nbsp;<span
+                                style="font-weight:400;color:rgba(148,163,184,0.5);">(x-auth-key-id)</span></label>
+                        <input type="text" id="authKeyId"
+                            placeholder="UUID v4 (e.g. 71308400-92ab-41d4-a716-446655440000)" autocomplete="off"
+                            spellcheck="false">
+                    </div>
                 </div>
-                <input type="hidden" id="algorithm" value="ML-DSA">
-                <div class="hint" id="algoHint">ML-DSA: Paste 4032-byte hex key or PEM-encoded secret key.</div>
-            </div>
 
-            <!-- Auth Private Key -->
-            <div class="form-group">
-                <label class="private-key-label">
-                    <span>Auth Private Key</span>
-                    <button type="button" id="uploadKeyBtn" class="btn-icon upload-key-btn" title="Upload key file">
-                        📂 Upload Key File
+                <!-- Auth Protocol -->
+                <div class="form-group">
+                    <label>Signing Protocol</label>
+                    <div class="pill-row">
+                        <span class="pill active" data-algo="ML-DSA" data-cls="active">ML-DSA (PQC)</span>
+                        <span class="pill" data-algo="ECDSA" data-cls="active-ecdsa">ECDSA</span>
+                        <span class="pill" data-algo="RSA" data-cls="active-rsa">RSA</span>
+                        <span class="pill" data-algo="Hybrid" data-cls="active-accent">Hybrid (PQC+Classical)</span>
+                    </div>
+                    <input type="hidden" id="algorithm" value="ML-DSA">
+                    <div class="hint" id="algoHint">ML-DSA: Paste 4032-byte hex key or PEM-encoded secret key.</div>
+                </div>
+
+                <!-- Auth Private Key -->
+                <div class="form-group">
+                    <div class="label-row">
+                        <label>Auth Private Key</label>
+                        <label class="upload-link" onclick="document.getElementById('fileInput').click()">
+                            <span>📁 Upload .pem / .key</span>
+                        </label>
+                    </div>
+                    <textarea id="privateKey" placeholder="Paste private key (Hex for ML-DSA, PEM for ECDSA/RSA)..."
+                        rows="4"></textarea>
+                    <input type="file" id="fileInput" style="display:none" accept=".pem,.key,.txt">
+                </div>
+
+                <!-- Dynamic Operation Fields -->
+                <div class="dynamic-fields">
+                    <div class="dynamic-fields-title" id="opTitle">Sign Parameters</div>
+                    <div id="fieldsContainer"></div>
+                    <!-- Empty state -->
+                    <div id="fieldsEmpty" class="hint" style="display:none; text-align:center; padding: 0.5rem 0;">No
+                        extra parameters required.</div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="btn-row">
+                    <button id="sendBtn" class="btn btn-primary">
+                        <div class="loader" id="loader"></div>
+                        <span id="sendBtnText">🚀 Execute</span>
                     </button>
-                </label>
-                <input type="file" id="privateKeyFile" accept=".pem,.key,.txt,text/plain,application/x-pem-file" style="display:none;">
-                <textarea id="privateKey" placeholder="Paste private key (Hex for ML-DSA, PEM for ECDSA/RSA)..." rows="4"></textarea>
-            </div>
-
-            <!-- Dynamic Operation Fields -->
-            <div class="dynamic-fields">
-                <div class="dynamic-fields-title" id="opTitle">Sign Parameters</div>
-                <div id="fieldsContainer"></div>
-                <!-- Empty state -->
-                <div id="fieldsEmpty" class="hint" style="display:none; text-align:center; padding: 0.5rem 0;">No extra parameters required.</div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="btn-row">
-                <button id="sendBtn" class="btn btn-primary">
-                    <div class="loader" id="loader"></div>
-                    <span id="sendBtnText">🚀 Execute</span>
-                </button>
-                <button id="clearBtn" class="btn btn-secondary" title="Clear all outputs">🗑 Clear</button>
-            </div>
-
-            <!-- Diagnostic Log -->
-            <div class="diag-log" id="diagLogs"></div>
-        </div>
-
-        <!-- RIGHT: Output -->
-        <div class="card">
-            <div class="card-header">
-                <h2>📊 Interaction Output</h2>
-                <div style="display:flex;gap:0.5rem;">
-                    <button class="btn-icon" id="copyResultBtn" title="Copy API Response">📋</button>
-                    <button class="btn-icon" id="copySignatureBtn" title="Copy Signature/Ciphertext from result" style="display:none;">⛓️</button>
+                    <button id="clearBtn" class="btn btn-secondary" title="Clear all outputs">🗑 Clear</button>
                 </div>
+
+                <!-- Diagnostic Log -->
+                <div class="diag-log" id="diagLogs"></div>
             </div>
 
-            <!-- Status Row -->
-            <div id="statusRow" class="status-row">
-                <div class="meta-info">
-                    <span id="statusCode" class="status-badge"></span>
-                    <span class="meta-chip" id="execTime"></span>
-                    <span class="meta-chip" id="opLabel"></span>
+            <!-- RIGHT: Output -->
+            <div class="card">
+                <div class="card-header">
+                    <h2>📊 Interaction Output</h2>
+                    <div style="display:flex;gap:0.5rem;">
+                        <button class="btn-icon" id="copyResultBtn" title="Copy API Response">📋</button>
+                        <button class="btn-icon" id="copySignatureBtn" title="Copy Signature/Ciphertext from result"
+                            style="display:none;">⛓️</button>
+                    </div>
                 </div>
-            </div>
 
-            <!-- API Response -->
-            <div class="section-label">API Response</div>
-            <div class="result-area" id="resultArea">Waiting for request...</div>
+                <!-- Status Row -->
+                <div id="statusRow" class="status-row">
+                    <div class="meta-info">
+                        <span id="statusCode" class="status-badge"></span>
+                        <span class="meta-chip" id="execTime"></span>
+                        <span class="meta-chip" id="opLabel"></span>
+                    </div>
+                </div>
 
-            <!-- Use as Input Banner (for Sign → Verify chain) -->
-            <div class="use-result-banner" id="useResultBanner">
-                <span>⚡ Signature/Ciphertext ready — use as input for the next step?</span>
-                <button class="btn-icon" id="useResultBtn">Use →</button>
-            </div>
+                <!-- API Response -->
+                <div class="section-label">API Response</div>
+                <div class="result-area" id="resultArea">Waiting for request...</div>
 
-            <!-- Request Headers -->
-            <div style="margin-top: 1.25rem;">
-                <div class="section-label">Request Headers <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.65rem;">(identity enforced)</span></div>
-                <div class="result-area compact" id="headersResult">None</div>
-            </div>
+                <!-- Use as Input Banner (for Sign → Verify chain) -->
+                <div class="use-result-banner" id="useResultBanner">
+                    <span>⚡ Signature/Ciphertext ready — use as input for the next step?</span>
+                    <button class="btn-icon" id="useResultBtn">Use →</button>
+                </div>
 
-            <!-- Signed Body -->
-            <div style="margin-top: 1rem;">
-                <div class="section-label">Signed Request Body <span style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.65rem;">(data &amp; timestamp only)</span></div>
-                <div class="result-area compact" id="signedBodyResult">None</div>
+                <!-- Request Headers -->
+                <div style="margin-top: 1.25rem;">
+                    <div class="section-label">Request Headers <span
+                            style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.65rem;">(identity
+                            enforced)</span></div>
+                    <div class="result-area compact" id="headersResult">None</div>
+                </div>
+
+                <!-- Signed Body -->
+                <div style="margin-top: 1rem;">
+                    <div class="section-label">Signed Request Body <span
+                            style="font-weight:400;text-transform:none;letter-spacing:0;font-size:0.65rem;">(data &amp;
+                            timestamp only)</span></div>
+                    <div class="result-area compact" id="signedBodyResult">None</div>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<script type="module">
-    import { ml_dsa65 } from 'https://esm.sh/@noble/post-quantum@0.5.4/ml-dsa';
+    <script type="module">
+        import { ml_dsa65 } from 'https://esm.sh/@noble/post-quantum@0.5.4/ml-dsa';
 
-    // ─── Config ────────────────────────────────────────────────────────────────
-    const getBaseUrl = () => document.getElementById('baseUrl').value.trim().replace(/\/$/, '');
+        // ─── Config ────────────────────────────────────────────────────────────────
+        const getBaseUrl = () => document.getElementById('baseUrl').value.trim().replace(/\/$/, '');
 
-    const OP_CONFIG = {
-        sign:        { title: 'Sign Parameters',       badge: 'DSA Mode',        fields: [{ id: 'data', label: 'Data to Sign', type: 'textarea', placeholder: 'Enter message to sign...' }] },
-        verify:      { title: 'Verify Parameters',     badge: 'DSA Mode',        fields: [{ id: 'data', label: 'Original Data', type: 'textarea', placeholder: 'Original message (must match exactly)...' }, { id: 'signature', label: 'Signature (Hex or JSON Object)', type: 'textarea', placeholder: '{"pqc":"...","classical":"..."} or raw hex...' }] },
-        encapsulate: { title: 'KEM Encapsulation',     badge: 'KEM Mode',        fields: [] },
-        decapsulate: { title: 'KEM Decapsulation',     badge: 'KEM Mode',        fields: [{ id: 'ciphertext', label: 'Ciphertext (Hex or JSON Object)', type: 'textarea', placeholder: '{"pqc":"...","classical":"..."} or raw hex...' }] },
-        encrypt:     { title: 'Encrypt Parameters',    badge: 'Symmetric Mode',  fields: [{ id: 'data', label: 'Plaintext Data', type: 'textarea', placeholder: 'Enter plaintext to encrypt...' }] },
-        decrypt:     { title: 'Decrypt Parameters',    badge: 'Symmetric Mode',  fields: [{ id: 'ciphertext', label: 'Ciphertext (Hex)', type: 'textarea', placeholder: 'Paste ciphertext hex...' }, { id: 'iv', label: 'IV (Hex)', type: 'text', placeholder: '24-char hex' }, { id: 'authTag', label: 'Auth Tag (Hex)', type: 'text', placeholder: '32-char hex' }] }
-    };
-
-    const ALGO_HINTS = {
-        'ML-DSA': 'Paste the 4032-byte hex-encoded ML-DSA-65 secret key.',
-        'ECDSA':  'Paste a PKCS#8 PEM-encoded ECDSA (P-256) private key.',
-        'RSA':    'Paste a PKCS#8 PEM-encoded RSA-2048 private key.',
-        'Hybrid': 'Hybrid Mode: Paste ECDSA PEM key, then ML-DSA HEX key separated by newline or space.'
-    };
-
-    const ALGO_COLORS = { 'ML-DSA': 'active', 'ECDSA': 'active-ecdsa', 'RSA': 'active-rsa', 'Hybrid': 'active-accent' };
-
-    // ─── Logger ─────────────────────────────────────────────────────────────────
-    const logger = document.getElementById('diagLogs');
-    function log(msg, type = '') {
-        const div = document.createElement('div');
-        const ts = document.createElement('span');
-        ts.className = 'ts';
-        ts.textContent = new Date().toLocaleTimeString();
-        const m = document.createElement('span');
-        m.className = `msg ${type}`;
-        m.textContent = msg;
-        div.append(ts, m);
-        logger.prepend(div);
-        if (logger.children.length > 50) logger.lastChild?.remove();
-    }
-
-    // ─── Crypto Helpers ─────────────────────────────────────────────────────────
-    function canonicalizeJSON(obj) {
-        if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
-        if (Array.isArray(obj)) return '[' + obj.map(item => canonicalizeJSON(item)).join(',') + ']';
-        const sortedKeys = Object.keys(obj).sort();
-        return '{' + sortedKeys.map(k => `"${k}":${canonicalizeJSON(obj[k])}`).join(',') + '}';
-    }
-
-    function parsePQCKey(input, expectedLen = 4032) {
-        const clean = input.trim();
-        let bytes;
-        if (clean.startsWith('-----')) {
-            const b64 = clean.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
-            const binary = atob(b64);
-            bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
-        } else {
-            const hex = clean.replace(/0x|[:\s]/g, '');
-            if (!/^[0-9a-fA-F]+$/.test(hex)) throw new Error('Invalid key format — expected Hex or PEM.');
-            bytes = new Uint8Array(hex.match(/.{1,2}/g).map(b => parseInt(b, 16)));
-        }
-        if (bytes.length > expectedLen) return bytes.slice(bytes.length - expectedLen);
-        if (bytes.length < expectedLen) throw new Error(`Key too short: got ${bytes.length}, need ${expectedLen} bytes.`);
-        return bytes;
-    }
-
-    async function importClassicalKey(pem, algo) {
-        const clean = pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
-        const keyData = Uint8Array.from(atob(clean), c => c.charCodeAt(0)).buffer;
-        if (algo === 'ECDSA') return crypto.subtle.importKey('pkcs8', keyData, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
-        if (algo === 'RSA')   return crypto.subtle.importKey('pkcs8', keyData, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']);
-        throw new Error(`Unsupported algorithm: ${algo}`);
-    }
-
-    function toHex(buf) {
-        return Array.from(new Uint8Array(buf), b => b.toString(16).padStart(2, '0')).join('');
-    }
-
-    // ─── UI State ────────────────────────────────────────────────────────────────
-    const opSelect      = document.getElementById('operation');
-    const fieldsContainer = document.getElementById('fieldsContainer');
-    const fieldsEmpty   = document.getElementById('fieldsEmpty');
-    const opTitle       = document.getElementById('opTitle');
-    const opBadge       = document.getElementById('opBadge');
-    const algoHint      = document.getElementById('algoHint');
-    const resultArea    = document.getElementById('resultArea');
-    const headersResult = document.getElementById('headersResult');
-    const signedBodyResult = document.getElementById('signedBodyResult');
-    const statusRow     = document.getElementById('statusRow');
-    const statusCode    = document.getElementById('statusCode');
-    const execTime      = document.getElementById('execTime');
-    const opLabel       = document.getElementById('opLabel');
-    const useResultBanner = document.getElementById('useResultBanner');
-    const copySignatureBtn = document.getElementById('copySignatureBtn');
-
-    let lastResult = null;  // Store raw result for chaining
-
-    // ─── Private Key File Upload ─────────────────────────────────────────────────
-    const uploadKeyBtn    = document.getElementById('uploadKeyBtn');
-    const privateKeyFile  = document.getElementById('privateKeyFile');
-    const privateKeyArea  = document.getElementById('privateKey');
-
-    uploadKeyBtn.addEventListener('click', () => privateKeyFile.click());
-
-    privateKeyFile.addEventListener('change', () => {
-        const file = privateKeyFile.files[0];
-        if (!file) return;
-
-        const MAX_KEY_SIZE = 64 * 1024; // 64 KB — more than enough for any key format
-        if (file.size > MAX_KEY_SIZE) {
-            log(`Key file too large (${(file.size / 1024).toFixed(1)} KB). Maximum allowed is 64 KB.`, 'error');
-            privateKeyFile.value = '';
-            return;
-        }
-
-        const reader = new FileReader();
-        reader.onload = e => {
-            const content = e.target.result.trim();
-            // Basic sanity check: key data should be non-empty hex or contain PEM markers
-            const isPem = content.includes('-----BEGIN') && content.includes('-----END');
-            const isHex = /^[0-9a-fA-F\s]+$/.test(content);
-            if (!isPem && !isHex) {
-                log('Uploaded file does not appear to contain a valid PEM or hex-encoded key.', 'error');
-                privateKeyFile.value = '';
-                return;
-            }
-            privateKeyArea.value = content;
-            log(`Key file loaded: ${file.name}`, 'ok');
+        const OP_CONFIG = {
+            sign: { title: 'Sign Parameters', badge: 'DSA Mode', fields: [{ id: 'data', label: 'Data to Sign', type: 'textarea', placeholder: 'Enter message to sign...' }] },
+            verify: { title: 'Verify Parameters', badge: 'DSA Mode', fields: [{ id: 'data', label: 'Original Data', type: 'textarea', placeholder: 'Original message (must match exactly)...' }, { id: 'signature', label: 'Signature (Hex or JSON Object)', type: 'textarea', placeholder: '{"pqc":"...","classical":"..."} or raw hex...' }] },
+            encapsulate: { title: 'KEM Encapsulation', badge: 'KEM Mode', fields: [] },
+            decapsulate: { title: 'KEM Decapsulation', badge: 'KEM Mode', fields: [{ id: 'ciphertext', label: 'Ciphertext (Hex or JSON Object)', type: 'textarea', placeholder: '{"pqc":"...","classical":"..."} or raw hex...' }] },
+            encrypt: { title: 'Encrypt Parameters', badge: 'Symmetric Mode', fields: [{ id: 'data', label: 'Plaintext Data', type: 'textarea', placeholder: 'Enter plaintext to encrypt...' }] },
+            decrypt: { title: 'Decrypt Parameters', badge: 'Symmetric Mode', fields: [{ id: 'ciphertext', label: 'Ciphertext (Hex)', type: 'textarea', placeholder: 'Paste ciphertext hex...' }, { id: 'iv', label: 'IV (Hex)', type: 'text', placeholder: '24-char hex' }, { id: 'authTag', label: 'Auth Tag (Hex)', type: 'text', placeholder: '32-char hex' }] }
         };
-        reader.onerror = () => log('Failed to read key file.', 'error');
-        reader.readAsText(file);
-        // Reset so the same file can be re-uploaded if needed
-        privateKeyFile.value = '';
-    });
 
-    function renderFields() {
-        const op = opSelect.value;
-        fieldsContainer.innerHTML = '';
-        opTitle.textContent = OP_CONFIG[op].title;
-        opBadge.textContent = OP_CONFIG[op].badge;
-        useResultBanner.style.display = 'none';
-        copySignatureBtn.style.display = 'none';
+        const ALGO_HINTS = {
+            'ML-DSA': 'Paste the 4032-byte hex-encoded ML-DSA-65 secret key.',
+            'ECDSA': 'Paste a PKCS#8 PEM-encoded ECDSA (P-256) private key.',
+            'RSA': 'Paste a PKCS#8 PEM-encoded RSA-2048 private key.',
+            'Hybrid': 'Hybrid Mode: Paste ECDSA PEM key, then ML-DSA HEX key separated by newline or space.'
+        };
 
-        const fields = OP_CONFIG[op].fields;
-        if (fields.length === 0) {
-            fieldsEmpty.style.display = 'block';
-        } else {
-            fieldsEmpty.style.display = 'none';
-            fields.forEach(field => {
-                const div = document.createElement('div');
-                div.className = 'form-group';
-                div.innerHTML = `<label>${field.label}</label>`;
-                const el = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
-                el.id = `input_${field.id}`;
-                if (field.type !== 'textarea') el.type = field.type;
-                el.placeholder = field.placeholder || '';
-                if (field.type === 'textarea') el.rows = 3;
-                div.appendChild(el);
-                fieldsContainer.appendChild(div);
-            });
+        const ALGO_COLORS = { 'ML-DSA': 'active', 'ECDSA': 'active-ecdsa', 'RSA': 'active-rsa', 'Hybrid': 'active-accent' };
+
+        // ─── Logger ─────────────────────────────────────────────────────────────────
+        const logger = document.getElementById('diagLogs');
+        function log(msg, type = '') {
+            const div = document.createElement('div');
+            const ts = document.createElement('span');
+            ts.className = 'ts';
+            ts.textContent = new Date().toLocaleTimeString();
+            const m = document.createElement('span');
+            m.className = `msg ${type}`;
+            m.textContent = msg;
+            div.append(ts, m);
+            logger.prepend(div);
+            if (logger.children.length > 50) logger.lastChild?.remove();
         }
-    }
 
-    opSelect.addEventListener('change', renderFields);
-    renderFields();
+        // ─── Crypto Helpers ─────────────────────────────────────────────────────────
+        function canonicalizeJSON(obj) {
+            if (obj === null || typeof obj !== 'object') return JSON.stringify(obj);
+            if (Array.isArray(obj)) return '[' + obj.map(item => canonicalizeJSON(item)).join(',') + ']';
+            const sortedKeys = Object.keys(obj).sort();
+            return '{' + sortedKeys.map(k => `"${k}":${canonicalizeJSON(obj[k])}`).join(',') + '}';
+        }
 
-    // Pill switching with color coding
-    document.querySelectorAll('.pill').forEach(p => {
-        p.addEventListener('click', () => {
-            document.querySelectorAll('.pill').forEach(x => {
-                x.className = 'pill';
-            });
-            const cls = p.dataset.cls;
-            p.className = `pill ${cls}`;
-            document.getElementById('algorithm').value = p.dataset.algo;
-            document.getElementById('privateKey').value = '';
-            algoHint.textContent = ALGO_HINTS[p.dataset.algo];
-            log(`Protocol: ${p.dataset.algo} — key field cleared.`, 'info');
+        function parsePQCKey(input, expectedLen = 4032) {
+            const clean = input.trim();
+            let bytes;
+            if (clean.startsWith('-----')) {
+                const b64 = clean.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
+                const binary = atob(b64);
+                bytes = Uint8Array.from(binary, c => c.charCodeAt(0));
+            } else {
+                const hex = clean.replace(/0x|[:\s]/g, '');
+                if (!/^[0-9a-fA-F]+$/.test(hex)) throw new Error('Invalid key format — expected Hex or PEM.');
+                bytes = new Uint8Array(hex.match(/.{1,2}/g).map(b => parseInt(b, 16)));
+            }
+            if (bytes.length > expectedLen) return bytes.slice(bytes.length - expectedLen);
+            if (bytes.length < expectedLen) throw new Error(`Key too short: got ${bytes.length}, need ${expectedLen} bytes.`);
+            return bytes;
+        }
+
+        async function importClassicalKey(pem, algo) {
+            const clean = pem.replace(/-----[^-]+-----/g, '').replace(/\s+/g, '');
+            const keyData = Uint8Array.from(atob(clean), c => c.charCodeAt(0)).buffer;
+            if (algo === 'ECDSA') return crypto.subtle.importKey('pkcs8', keyData, { name: 'ECDSA', namedCurve: 'P-256' }, false, ['sign']);
+            if (algo === 'RSA') return crypto.subtle.importKey('pkcs8', keyData, { name: 'RSASSA-PKCS1-v1_5', hash: 'SHA-256' }, false, ['sign']);
+            throw new Error(`Unsupported algorithm: ${algo}`);
+        }
+
+        function toHex(buf) {
+            return Array.from(new Uint8Array(buf), b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // ─── File Upload Logic ──────────────────────────────────────────────────────
+        document.getElementById('fileInput').addEventListener('change', function (e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                document.getElementById('privateKey').value = event.target.result;
+                log(`File loaded: ${file.name}`, 'ok');
+            };
+            reader.onerror = () => log('Failed to read file', 'err');
+            reader.readAsText(file);
         });
-    });
 
-    // Clear button
-    document.getElementById('clearBtn').addEventListener('click', () => {
-        resultArea.textContent = 'Waiting for request...';
-        resultArea.className = 'result-area';
-        headersResult.textContent = 'None';
-        signedBodyResult.textContent = 'None';
-        statusRow.style.display = 'none';
-        useResultBanner.style.display = 'none';
-        copySignatureBtn.style.display = 'none';
-        lastResult = null;
-        logger.innerHTML = '';
-        log('Outputs cleared.', 'info');
-    });
+        // ─── UI State ────────────────────────────────────────────────────────────────
+        const opSelect = document.getElementById('operation');
+        const fieldsContainer = document.getElementById('fieldsContainer');
+        const fieldsEmpty = document.getElementById('fieldsEmpty');
+        const opTitle = document.getElementById('opTitle');
+        const opBadge = document.getElementById('opBadge');
+        const algoHint = document.getElementById('algoHint');
+        const resultArea = document.getElementById('resultArea');
+        const headersResult = document.getElementById('headersResult');
+        const signedBodyResult = document.getElementById('signedBodyResult');
+        const statusRow = document.getElementById('statusRow');
+        const statusCode = document.getElementById('statusCode');
+        const execTime = document.getElementById('execTime');
+        const opLabel = document.getElementById('opLabel');
+        const useResultBanner = document.getElementById('useResultBanner');
+        const copySignatureBtn = document.getElementById('copySignatureBtn');
 
-    // Copy result
-    document.getElementById('copyResultBtn').addEventListener('click', async () => {
-        try {
-            await navigator.clipboard.writeText(resultArea.textContent);
-            log('Full response copied.', 'ok');
-        } catch (e) {
-            log('Clipboard write failed.', 'err');
+        let lastResult = null;  // Store raw result for chaining
+
+        function renderFields() {
+            const op = opSelect.value;
+            fieldsContainer.innerHTML = '';
+            opTitle.textContent = OP_CONFIG[op].title;
+            opBadge.textContent = OP_CONFIG[op].badge;
+            useResultBanner.style.display = 'none';
+            copySignatureBtn.style.display = 'none';
+
+            const fields = OP_CONFIG[op].fields;
+            if (fields.length === 0) {
+                fieldsEmpty.style.display = 'block';
+            } else {
+                fieldsEmpty.style.display = 'none';
+                fields.forEach(field => {
+                    const div = document.createElement('div');
+                    div.className = 'form-group';
+                    div.innerHTML = `<label>${field.label}</label>`;
+                    const el = document.createElement(field.type === 'textarea' ? 'textarea' : 'input');
+                    el.id = `input_${field.id}`;
+                    if (field.type !== 'textarea') el.type = field.type;
+                    el.placeholder = field.placeholder || '';
+                    if (field.type === 'textarea') el.rows = 3;
+                    div.appendChild(el);
+                    fieldsContainer.appendChild(div);
+                });
+            }
         }
-    });
 
-    // Copy just signature/ciphertext
-    copySignatureBtn.addEventListener('click', async () => {
-        if (!lastResult) return;
-        const toCopy = lastResult.signature ?? lastResult.ciphertext ?? lastResult.sharedSecret ?? lastResult.data ?? '';
-        const text = typeof toCopy === 'object' ? JSON.stringify(toCopy) : toCopy;
-        try {
-            await navigator.clipboard.writeText(text);
-            log('Payload field copied.', 'ok');
-        } catch (e) {
-            log('Clipboard write failed.', 'err');
-        }
-    });
-
-    // Use Last Result → fill input field for chaining (Sign → Verify, Encap → Decap, Encrypt → Decrypt)
-    document.getElementById('useResultBtn').addEventListener('click', () => {
-        if (!lastResult) return;
-        const op = opSelect.value;
-
-        const CHAIN_MAP = { sign: 'verify', encapsulate: 'decapsulate', encrypt: 'decrypt' };
-        const nextOp = CHAIN_MAP[op];
-        if (!nextOp) return;
-
-        // Switch operation
-        opSelect.value = nextOp;
+        opSelect.addEventListener('change', renderFields);
         renderFields();
 
-        // Fill fields
-        if (nextOp === 'verify') {
-            const sig = lastResult.signature;
-            const sigEl = document.getElementById('input_signature');
-            if (sigEl) sigEl.value = typeof sig === 'object' ? JSON.stringify(sig) : (sig ?? '');
-            // Keep data same
-            const dataEl = document.getElementById('input_data');
-            const prevData = document.getElementById('input_data')?.value;
-            if (dataEl && prevData) dataEl.value = prevData;
-        } else if (nextOp === 'decapsulate') {
-            const ct = lastResult.ciphertext;
-            const ctEl = document.getElementById('input_ciphertext');
-            if (ctEl) ctEl.value = typeof ct === 'object' ? JSON.stringify(ct) : (ct ?? '');
-        } else if (nextOp === 'decrypt') {
-            const ctEl = document.getElementById('input_ciphertext');
-            const ivEl = document.getElementById('input_iv');
-            const atEl = document.getElementById('input_authTag');
-            if (ctEl) ctEl.value = lastResult.ciphertext ?? '';
-            if (ivEl)  ivEl.value  = lastResult.iv ?? '';
-            if (atEl)  atEl.value  = lastResult.authTag ?? '';
-        }
-
-        useResultBanner.style.display = 'none';
-        log(`Chained: ${op} → ${nextOp}`, 'ok');
-    });
-
-    // ─── Main Execute ────────────────────────────────────────────────────────────
-    document.getElementById('sendBtn').addEventListener('click', async () => {
-        const btn     = document.getElementById('sendBtn');
-        const loader  = document.getElementById('loader');
-        const sendTxt = document.getElementById('sendBtnText');
-
-        resultArea.textContent = 'Processing...';
-        resultArea.className = 'result-area';
-        btn.disabled = true;
-        loader.style.display = 'block';
-        sendTxt.textContent = 'Executing...';
-
-        try {
-            const op          = opSelect.value;
-            const baseUrl     = getBaseUrl();
-            const pqcKeyId    = document.getElementById('pqcKeyId').value.trim();
-            const authKeyId   = document.getElementById('authKeyId').value.trim();
-            const privateKeyInput = document.getElementById('privateKey').value.trim();
-            const algorithm   = document.getElementById('algorithm').value;
-
-            if (!authKeyId) throw new Error('Auth Key ID is required (x-auth-key-id).');
-            if (!privateKeyInput) throw new Error('Auth Private Key is required. Please paste your private key.');
-
-            // ── 1. Build Body (strict: no IDs) ─────────────────────────────────
-            const body = { timestamp: Date.now().toString() };
-            OP_CONFIG[op].fields.forEach(f => {
-                let val = document.getElementById(`input_${f.id}`)?.value ?? '';
-                // Auto-parse JSON for hybrid signature / ciphertext fields
-                if ((op === 'verify' && f.id === 'signature') || (op === 'decapsulate' && f.id === 'ciphertext')) {
-                    const trimmed = val.trim();
-                    if (trimmed.startsWith('{')) {
-                        try { val = JSON.parse(trimmed); log('Parsed JSON field.', 'info'); }
-                        catch (e) { log('JSON parse failed — treating as string.', 'err'); }
-                    }
-                }
-                body[f.id] = val;
+        // Pill switching with color coding
+        document.querySelectorAll('.pill').forEach(p => {
+            p.addEventListener('click', () => {
+                document.querySelectorAll('.pill').forEach(x => {
+                    x.className = 'pill';
+                });
+                const cls = p.dataset.cls;
+                p.className = `pill ${cls}`;
+                document.getElementById('algorithm').value = p.dataset.algo;
+                document.getElementById('privateKey').value = '';
+                algoHint.textContent = ALGO_HINTS[p.dataset.algo];
+                log(`Protocol: ${p.dataset.algo} — key field cleared.`, 'info');
             });
+        });
 
-            // ── 2. Canonicalize ────────────────────────────────────────────────
-            const canonicalBody = canonicalizeJSON(body);
-            signedBodyResult.textContent = canonicalBody;
-            const bodyBytes = new TextEncoder().encode(canonicalBody);
-            log(`Body canonicalized (${bodyBytes.length} bytes).`, 'info');
+        // Clear button
+        document.getElementById('clearBtn').addEventListener('click', () => {
+            resultArea.textContent = 'Waiting for request...';
+            resultArea.className = 'result-area';
+            headersResult.textContent = 'None';
+            signedBodyResult.textContent = 'None';
+            statusRow.style.display = 'none';
+            useResultBanner.style.display = 'none';
+            copySignatureBtn.style.display = 'none';
+            lastResult = null;
+            logger.innerHTML = '';
+            log('Outputs cleared.', 'info');
+        });
 
-            // ── 3. Sign Body ───────────────────────────────────────────────────
-            const t0 = performance.now();
-            let signature = '';
-            if (algorithm === 'ML-DSA') {
-                log('Signing with ML-DSA-65...', 'info');
-                const rawKey = parsePQCKey(privateKeyInput, 4032);
-                signature = toHex(ml_dsa65.sign(bodyBytes, rawKey));
-            } else if (algorithm === 'Hybrid') {
-                log('Generating Hybrid Signatures (ECDSA + ML-DSA)...', 'info');
-                // Extract ECDSA PEM and ML-DSA Hex
-                const pemMatch = privateKeyInput.match(/-----BEGIN [^-]+-----[\s\S]+?-----END [^-]+-----/);
-                const ecdsaPem = pemMatch ? pemMatch[0] : "";
-                const remaining = privateKeyInput.replace(ecdsaPem, "").trim();
-                const mldsaHex = remaining.match(/[0-9a-fA-F]{8064}/) ? remaining.match(/[0-9a-fA-F]{8064}/)[0] : remaining;
+        // Copy result
+        document.getElementById('copyResultBtn').addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(resultArea.textContent);
+                log('Full response copied.', 'ok');
+            } catch (e) {
+                log('Clipboard write failed.', 'err');
+            }
+        });
 
-                if (!ecdsaPem || !mldsaHex) throw new Error("Hybrid mode requires both ECDSA PEM and ML-DSA Hex keys.");
+        // Copy just signature/ciphertext
+        copySignatureBtn.addEventListener('click', async () => {
+            if (!lastResult) return;
+            const toCopy = lastResult.signature ?? lastResult.ciphertext ?? lastResult.sharedSecret ?? lastResult.data ?? '';
+            const text = typeof toCopy === 'object' ? JSON.stringify(toCopy) : toCopy;
+            try {
+                await navigator.clipboard.writeText(text);
+                log('Payload field copied.', 'ok');
+            } catch (e) {
+                log('Clipboard write failed.', 'err');
+            }
+        });
 
-                // 3a. Classical
-                const ecdsaKey = await importClassicalKey(ecdsaPem, 'ECDSA');
-                const classicalSigBuf = await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, ecdsaKey, bodyBytes);
-                const classicalSig = toHex(classicalSigBuf);
+        // Use Last Result → fill input field for chaining (Sign → Verify, Encap → Decap, Encrypt → Decrypt)
+        document.getElementById('useResultBtn').addEventListener('click', () => {
+            if (!lastResult) return;
+            const op = opSelect.value;
 
-                // 3b. PQC
-                const mldsaRawKey = parsePQCKey(mldsaHex, 4032);
-                const pqcSig = toHex(ml_dsa65.sign(bodyBytes, mldsaRawKey));
+            const CHAIN_MAP = { sign: 'verify', encapsulate: 'decapsulate', encrypt: 'decrypt' };
+            const nextOp = CHAIN_MAP[op];
+            if (!nextOp) return;
 
-                signature = { classical: classicalSig, pqc: pqcSig };
-                log('Hybrid signatures generated.', 'ok');
-            } else {
-                log(`Signing with ${algorithm}...`, 'info');
-                const key = await importClassicalKey(privateKeyInput, algorithm);
-                const params = algorithm === 'ECDSA' ? { name: 'ECDSA', hash: 'SHA-256' } : { name: 'RSASSA-PKCS1-v1_5' };
-                const sigBuf = await crypto.subtle.sign(params, key, bodyBytes);
-                signature = toHex(sigBuf);
+            // Switch operation
+            opSelect.value = nextOp;
+            renderFields();
+
+            // Fill fields
+            if (nextOp === 'verify') {
+                const sig = lastResult.signature;
+                const sigEl = document.getElementById('input_signature');
+                if (sigEl) sigEl.value = typeof sig === 'object' ? JSON.stringify(sig) : (sig ?? '');
+                // Keep data same
+                const dataEl = document.getElementById('input_data');
+                const prevData = document.getElementById('input_data')?.value;
+                if (dataEl && prevData) dataEl.value = prevData;
+            } else if (nextOp === 'decapsulate') {
+                const ct = lastResult.ciphertext;
+                const ctEl = document.getElementById('input_ciphertext');
+                if (ctEl) ctEl.value = typeof ct === 'object' ? JSON.stringify(ct) : (ct ?? '');
+            } else if (nextOp === 'decrypt') {
+                const ctEl = document.getElementById('input_ciphertext');
+                const ivEl = document.getElementById('input_iv');
+                const atEl = document.getElementById('input_authTag');
+                if (ctEl) ctEl.value = lastResult.ciphertext ?? '';
+                if (ivEl) ivEl.value = lastResult.iv ?? '';
+                if (atEl) atEl.value = lastResult.authTag ?? '';
             }
 
-            // Truncation logic for x-signature in header display
-            const sigToSend = typeof signature === 'object' ? JSON.stringify(signature) : signature;
-            const sigDisplay = typeof signature === 'object' 
-                ? `{ classical: "${signature.classical.slice(0,8)}...", pqc: "${signature.pqc.slice(0,8)}..." }`
-                : (signature.length > 32 ? signature.slice(0, 24) + '...' + signature.slice(-8) : signature);
+            useResultBanner.style.display = 'none';
+            log(`Chained: ${op} → ${nextOp}`, 'ok');
+        });
 
-            log(`Signed (${sigToSend.length} bytes total).`, 'ok');
+        // ─── Main Execute ────────────────────────────────────────────────────────────
+        document.getElementById('sendBtn').addEventListener('click', async () => {
+            const btn = document.getElementById('sendBtn');
+            const loader = document.getElementById('loader');
+            const sendTxt = document.getElementById('sendBtnText');
 
-            // ── 4. Send Request ────────────────────────────────────────────────
-            const reqHeaders = {
-                'Content-Type'  : 'application/json',
-                'x-pqc-key-id'  : pqcKeyId,
-                'x-auth-key-id' : authKeyId,
-                'x-signature'   : sigToSend
-            };
+            resultArea.textContent = 'Processing...';
+            resultArea.className = 'result-area';
+            btn.disabled = true;
+            loader.style.display = 'block';
+            sendTxt.textContent = 'Executing...';
 
-            // Show headers (truncated signature for display)
-            const displayHeaders = { ...reqHeaders, 'x-signature': sigDisplay };
-            headersResult.textContent = JSON.stringify(displayHeaders, null, 2);
+            try {
+                const op = opSelect.value;
+                const baseUrl = getBaseUrl();
+                const pqcKeyId = document.getElementById('pqcKeyId').value.trim();
+                const authKeyId = document.getElementById('authKeyId').value.trim();
+                const privateKeyInput = document.getElementById('privateKey').value.trim();
+                const algorithm = document.getElementById('algorithm').value;
 
-            const response = await fetch(`${baseUrl}/${op}`, {
-                method: 'POST',
-                headers: reqHeaders,
-                body: JSON.stringify(body)
-            });
+                if (!authKeyId) throw new Error('Auth Key ID is required (x-auth-key-id).');
+                if (!privateKeyInput) throw new Error('Auth Private Key is required. Please paste your private key.');
 
-            const t1 = performance.now();
-            let result;
-            try { result = await response.json(); }
-            catch (e) { result = { error: 'Non-JSON response from server.' }; }
-
-            lastResult = result;
-
-            // ── 5. Render Result ───────────────────────────────────────────────
-            const latency = (t1 - t0).toFixed(0);
-            statusCode.textContent = `HTTP ${response.status}`;
-            statusCode.className = `status-badge ${response.ok ? 'status-ok' : 'status-err'}`;
-            execTime.textContent = `${latency}ms`;
-            opLabel.textContent = op.toUpperCase();
-            statusRow.style.display = 'flex';
-
-            resultArea.textContent = JSON.stringify(result, null, 2);
-            resultArea.className = `result-area ${response.ok ? 'success' : 'error'}`;
-
-            if (response.ok) {
-                log(`${op} → HTTP ${response.status} (${latency}ms)`, 'ok');
-                // Show chain helper & copy payload button
-                const hasPayload = result.signature || result.ciphertext || result.sharedSecret || result.data;
-                if (hasPayload) {
-                    copySignatureBtn.style.display = 'flex';
-                    const CHAIN_VERBS = { sign: 'Verify', encapsulate: 'Decapsulate', encrypt: 'Decrypt' };
-                    if (CHAIN_VERBS[op]) {
-                        useResultBanner.querySelector('span').textContent = `⚡ Result ready — chain to ${CHAIN_VERBS[op]}?`;
-                        useResultBanner.style.display = 'flex';
+                // ── 1. Build Body (strict: no IDs) ─────────────────────────────────
+                const body = { timestamp: Date.now().toString() };
+                OP_CONFIG[op].fields.forEach(f => {
+                    let val = document.getElementById(`input_${f.id}`)?.value ?? '';
+                    // Auto-parse JSON for hybrid signature / ciphertext fields
+                    if ((op === 'verify' && f.id === 'signature') || (op === 'decapsulate' && f.id === 'ciphertext')) {
+                        const trimmed = val.trim();
+                        if (trimmed.startsWith('{')) {
+                            try { val = JSON.parse(trimmed); log('Parsed JSON field.', 'info'); }
+                            catch (e) { log('JSON parse failed — treating as string.', 'err'); }
+                        }
                     }
+                    body[f.id] = val;
+                });
+
+                // ── 2. Canonicalize ────────────────────────────────────────────────
+                const canonicalBody = canonicalizeJSON(body);
+                signedBodyResult.textContent = canonicalBody;
+                const bodyBytes = new TextEncoder().encode(canonicalBody);
+                log(`Body canonicalized (${bodyBytes.length} bytes).`, 'info');
+
+                // ── 3. Sign Body ───────────────────────────────────────────────────
+                const t0 = performance.now();
+                let signature = '';
+                if (algorithm === 'ML-DSA') {
+                    log('Signing with ML-DSA-65...', 'info');
+                    const rawKey = parsePQCKey(privateKeyInput, 4032);
+                    signature = toHex(ml_dsa65.sign(bodyBytes, rawKey));
+                } else if (algorithm === 'Hybrid') {
+                    log('Generating Hybrid Signatures (ECDSA + ML-DSA)...', 'info');
+                    // Extract ECDSA PEM and ML-DSA Hex
+                    const pemMatch = privateKeyInput.match(/-----BEGIN [^-]+-----[\s\S]+?-----END [^-]+-----/);
+                    const ecdsaPem = pemMatch ? pemMatch[0] : "";
+                    const remaining = privateKeyInput.replace(ecdsaPem, "").trim();
+                    const mldsaHex = remaining.match(/[0-9a-fA-F]{8064}/) ? remaining.match(/[0-9a-fA-F]{8064}/)[0] : remaining;
+
+                    if (!ecdsaPem || !mldsaHex) throw new Error("Hybrid mode requires both ECDSA PEM and ML-DSA Hex keys.");
+
+                    // 3a. Classical
+                    const ecdsaKey = await importClassicalKey(ecdsaPem, 'ECDSA');
+                    const classicalSigBuf = await crypto.subtle.sign({ name: 'ECDSA', hash: 'SHA-256' }, ecdsaKey, bodyBytes);
+                    const classicalSig = toHex(classicalSigBuf);
+
+                    // 3b. PQC
+                    const mldsaRawKey = parsePQCKey(mldsaHex, 4032);
+                    const pqcSig = toHex(ml_dsa65.sign(bodyBytes, mldsaRawKey));
+
+                    signature = { classical: classicalSig, pqc: pqcSig };
+                    log('Hybrid signatures generated.', 'ok');
+                } else {
+                    log(`Signing with ${algorithm}...`, 'info');
+                    const key = await importClassicalKey(privateKeyInput, algorithm);
+                    const params = algorithm === 'ECDSA' ? { name: 'ECDSA', hash: 'SHA-256' } : { name: 'RSASSA-PKCS1-v1_5' };
+                    const sigBuf = await crypto.subtle.sign(params, key, bodyBytes);
+                    signature = toHex(sigBuf);
                 }
-            } else {
-                log(`${op} → HTTP ${response.status}: ${result?.error || 'Server error'}`, 'err');
+
+                // Truncation logic for x-signature in header display
+                const sigToSend = typeof signature === 'object' ? JSON.stringify(signature) : signature;
+                const sigDisplay = typeof signature === 'object'
+                    ? `{ classical: "${signature.classical.slice(0, 8)}...", pqc: "${signature.pqc.slice(0, 8)}..." }`
+                    : (signature.length > 32 ? signature.slice(0, 24) + '...' + signature.slice(-8) : signature);
+
+                log(`Signed (${sigToSend.length} bytes total).`, 'ok');
+
+                // ── 4. Send Request ────────────────────────────────────────────────
+                const reqHeaders = {
+                    'Content-Type': 'application/json',
+                    'x-pqc-key-id': pqcKeyId,
+                    'x-auth-key-id': authKeyId,
+                    'x-signature': sigToSend
+                };
+
+                // Show headers (truncated signature for display)
+                const displayHeaders = { ...reqHeaders, 'x-signature': sigDisplay };
+                headersResult.textContent = JSON.stringify(displayHeaders, null, 2);
+
+                const response = await fetch(`${baseUrl}/${op}`, {
+                    method: 'POST',
+                    headers: reqHeaders,
+                    body: JSON.stringify(body)
+                });
+
+                const t1 = performance.now();
+                let result;
+                try { result = await response.json(); }
+                catch (e) { result = { error: 'Non-JSON response from server.' }; }
+
+                lastResult = result;
+
+                // ── 5. Render Result ───────────────────────────────────────────────
+                const latency = (t1 - t0).toFixed(0);
+                statusCode.textContent = `HTTP ${response.status}`;
+                statusCode.className = `status-badge ${response.ok ? 'status-ok' : 'status-err'}`;
+                execTime.textContent = `${latency}ms`;
+                opLabel.textContent = op.toUpperCase();
+                statusRow.style.display = 'flex';
+
+                resultArea.textContent = JSON.stringify(result, null, 2);
+                resultArea.className = `result-area ${response.ok ? 'success' : 'error'}`;
+
+                if (response.ok) {
+                    log(`${op} → HTTP ${response.status} (${latency}ms)`, 'ok');
+                    // Show chain helper & copy payload button
+                    const hasPayload = result.signature || result.ciphertext || result.sharedSecret || result.data;
+                    if (hasPayload) {
+                        copySignatureBtn.style.display = 'flex';
+                        const CHAIN_VERBS = { sign: 'Verify', encapsulate: 'Decapsulate', encrypt: 'Decrypt' };
+                        if (CHAIN_VERBS[op]) {
+                            useResultBanner.querySelector('span').textContent = `⚡ Result ready — chain to ${CHAIN_VERBS[op]}?`;
+                            useResultBanner.style.display = 'flex';
+                        }
+                    }
+                } else {
+                    log(`${op} → HTTP ${response.status}: ${result?.error || 'Server error'}`, 'err');
+                }
+
+            } catch (error) {
+                resultArea.textContent = `Error: ${error.message}`;
+                resultArea.className = 'result-area error';
+                statusCode.textContent = 'CLIENT ERROR';
+                statusCode.className = 'status-badge status-err';
+                execTime.textContent = '';
+                opLabel.textContent = '';
+                statusRow.style.display = 'flex';
+                log(`Error: ${error.message}`, 'err');
+            } finally {
+                btn.disabled = false;
+                loader.style.display = 'none';
+                sendTxt.textContent = '🚀 Execute';
             }
+        });
 
-        } catch (error) {
-            resultArea.textContent = `Error: ${error.message}`;
-            resultArea.className = 'result-area error';
-            statusCode.textContent = 'CLIENT ERROR';
-            statusCode.className = 'status-badge status-err';
-            execTime.textContent = '';
-            opLabel.textContent = '';
-            statusRow.style.display = 'flex';
-            log(`Error: ${error.message}`, 'err');
-        } finally {
-            btn.disabled = false;
-            loader.style.display = 'none';
-            sendTxt.textContent = '🚀 Execute';
-        }
-    });
+        // ── Enter in single-line inputs to trigger execute ─────────────────────────
+        document.addEventListener('keydown', e => {
+            if (e.key === 'Enter' && e.ctrlKey) document.getElementById('sendBtn').click();
+        });
 
-    // ── Enter in single-line inputs to trigger execute ─────────────────────────
-    document.addEventListener('keydown', e => {
-        if (e.key === 'Enter' && e.ctrlKey) document.getElementById('sendBtn').click();
-    });
-
-    log('QuantumVault Hardened Tester Ready. (Ctrl+Enter to execute)', 'ok');
-</script>
+        log('QuantumVault Hardened Tester Ready. (Ctrl+Enter to execute)', 'ok');
+    </script>
 </body>
+
 </html>
