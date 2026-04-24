@@ -302,6 +302,20 @@
 
         .btn-icon:hover { background: rgba(99,102,241,0.2); }
 
+        .upload-key-btn {
+            font-size: 0.7rem;
+            padding: 0.25rem 0.6rem;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .private-key-label {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
         /* Loader */
         .loader {
             width: 16px;
@@ -519,7 +533,13 @@
 
             <!-- Auth Private Key -->
             <div class="form-group">
-                <label>Auth Private Key</label>
+                <label class="private-key-label">
+                    <span>Auth Private Key</span>
+                    <button type="button" id="uploadKeyBtn" class="btn-icon upload-key-btn" title="Upload key file">
+                        📂 Upload Key File
+                    </button>
+                </label>
+                <input type="file" id="privateKeyFile" accept=".pem,.key,.txt,text/plain,application/x-pem-file" style="display:none;">
                 <textarea id="privateKey" placeholder="Paste private key (Hex for ML-DSA, PEM for ECDSA/RSA)..." rows="4"></textarea>
             </div>
 
@@ -682,6 +702,44 @@
     const copySignatureBtn = document.getElementById('copySignatureBtn');
 
     let lastResult = null;  // Store raw result for chaining
+
+    // ─── Private Key File Upload ─────────────────────────────────────────────────
+    const uploadKeyBtn    = document.getElementById('uploadKeyBtn');
+    const privateKeyFile  = document.getElementById('privateKeyFile');
+    const privateKeyArea  = document.getElementById('privateKey');
+
+    uploadKeyBtn.addEventListener('click', () => privateKeyFile.click());
+
+    privateKeyFile.addEventListener('change', () => {
+        const file = privateKeyFile.files[0];
+        if (!file) return;
+
+        const MAX_KEY_SIZE = 64 * 1024; // 64 KB — more than enough for any key format
+        if (file.size > MAX_KEY_SIZE) {
+            log(`Key file too large (${(file.size / 1024).toFixed(1)} KB). Maximum allowed is 64 KB.`, 'error');
+            privateKeyFile.value = '';
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = e => {
+            const content = e.target.result.trim();
+            // Basic sanity check: key data should be non-empty hex or contain PEM markers
+            const isPem = content.includes('-----BEGIN') && content.includes('-----END');
+            const isHex = /^[0-9a-fA-F\s]+$/.test(content);
+            if (!isPem && !isHex) {
+                log('Uploaded file does not appear to contain a valid PEM or hex-encoded key.', 'error');
+                privateKeyFile.value = '';
+                return;
+            }
+            privateKeyArea.value = content;
+            log(`Key file loaded: ${file.name}`, 'ok');
+        };
+        reader.onerror = () => log('Failed to read key file.', 'error');
+        reader.readAsText(file);
+        // Reset so the same file can be re-uploaded if needed
+        privateKeyFile.value = '';
+    });
 
     function renderFields() {
         const op = opSelect.value;
